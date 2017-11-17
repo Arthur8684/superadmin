@@ -1,4 +1,4 @@
-yi是不是应该删了，放wperAdmin的简介
+是不是应该删了，放superAdmin的简介
 ThinkPHP 5.0
 ===============
 
