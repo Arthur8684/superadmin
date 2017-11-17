@@ -1,0 +1,89 @@
+<!-- Breadcrumb -->
+<ol class="breadcrumb hidden-xs">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+</ol>
+
+<h4 class="page-title b-0">登陆日志</h4>
+
+<div class="listview list-container">
+    <header class="listview-header media">
+        <ul class="list-inline list-mass-actions pull-left">
+            <li>
+                <a href="" title="Order By" class="tooltips">
+                    <i class="sa-list-refresh"></i>
+                </a>
+            </li>
+            <li class="show-on" style="display: none;">
+                <a href="" title="Delete" class="tooltips">
+                    <i class="sa-list-delete"></i>
+                </a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </header>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td style="padding: 10px 15px;"><input type="checkbox" class="pull-left list-parent-check" value=""></td>
+                    <td>用户ID</td>
+                    <td>用户名</td>
+                    <td>登陆IP</td>
+                    <td>登陆地点</td>
+                    <td>浏览器</td>
+                    <td>操作系统</td>
+                    <td>登录时间</td>
+                </tr>
+            </thead>
+            <tbody>
+            {foreach name="list" item="vo"}
+                <tr>
+                    <td style="padding: 10px 15px;"><input type="checkbox" class="pull-left list-check" value=""></td>
+                    <td>{$vo.uid}</td>
+                    <td>{$vo.user}</td>
+                    <td>{$vo.login_ip}</td>
+                    <td>{$vo.login_location}</td>
+                    <td>{$vo.login_browser}</td>
+                    <td>{$vo.login_os}</td>
+                    <td>{$vo.login_time|date="Y-m-d H:i:s",###}</td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="media text-center">
+
+        <ul class="pagination">
+            {$list->render()}
+        </ul>
+    </div>
+</div>
+
+</section>
+</section>
+
+<!-- Javascript Libraries -->
+<!-- jQuery -->
+<script src="__PUBLIC__/js/jquery.min.js"></script> <!-- jQuery Library -->
+
+<!-- Bootstrap -->
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+
+<!--  Form Related -->
+<script src="__PUBLIC__/js/icheck.js"></script> <!-- Custom Checkbox + Radio -->
+
+<!-- UX -->
+<script src="__PUBLIC__/js/scroll.min.js"></script> <!-- Custom Scrollbar -->
+
+<!-- Other -->
+<script src="__PUBLIC__/js/calendar.min.js"></script> <!-- Calendar -->
+<script src="__PUBLIC__/js/feeds.min.js"></script> <!-- News Feeds -->
+
+
+<!-- All JS functions -->
+<script src="__PUBLIC__/js/functions.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{__NOLAYOUT__}
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+
+    <meta name="description" content="Violate Responsive Admin Template">
+    <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+
+    <title>Super Admin Responsive Template</title>
+
+    <!-- CSS -->
+    <link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/form.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/animate.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/generics.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/file-manager.css" rel="stylesheet">
+</head>
+<body id="skin-blur-violate">
+<section id="login">
+    <header>
+        <h1>SUPER ADMIN</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu risus. Curabitur commodo lorem fringilla enim feugiat commodo sed ac lacus.</p>
+    </header>
+
+    <div class="clearfix"></div>
+
+    <!-- Login -->
+    <form class="box tile animated active">
+        <h2 class="m-t-0 m-b-15">Login</h2>
+        <input type="text" class="login-control m-b-10" placeholder="Username or Email Address" name="username">
+        <input type="password" class="login-control" placeholder="Password" name="password">
+        <div class="checkbox m-b-20">
+            <!--<label>
+                <input type="checkbox">
+                Remember Me
+            </label>-->
+        </div>
+        <a class="btn btn-sm m-r-5" id="adminLogin" >Sign In</a>
+    </form>
+    <div id="adminError" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable bounceIn animated std42-dialog  elfinder-dialog elfinder-dialog-error elfinder-dialog-active" style="display:none;width: 320px; height: auto; top: 200px; left: 630px; z-index: 11;">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+            <a href="#" class="close_alert ui-dialog-titlebar-close ui-corner-all"><span class="ui-icon ui-icon-closethick">×</span></a>Error
+        </div>
+        <div class="ui-dialog-content ui-widget-content">
+            <span class="elfinder-dialog-icon elfinder-dialog-icon-error"></span><span id="adminContent"></span>
+        </div>
+        <div class=" ui-helper-clearfix ui-dialog-buttonpane ui-widget-content">
+            <div class="ui-dialog-buttonset">
+                <button type="button" class="ui-button btn btn-xs ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                    <span class="ui-button-text close_alert">Close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Javascript Libraries -->
+<!-- jQuery -->
+<script src="__PUBLIC__/js/jquery.min.js"></script> <!-- jQuery Library -->
+
+<!-- Bootstrap -->
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+
+<!--  Form Related -->
+<script src="__PUBLIC__/js/icheck.js"></script> <!-- Custom Checkbox + Radio -->
+
+<!-- All JS functions -->
+<script src="__PUBLIC__/js/functions.js"></script>
+<script>
+    $(function () {
+        //关闭弹窗
+        $(".close_alert").on("click", function () {
+            $("#adminError").css("display","none");
+        })
+        //登陆
+        $("#adminLogin").on("click",function(){
+            var user = $("input[name='username']").val();
+            var pass = $("input[name='password']").val();
+            $.ajax({
+                url:"{:url('login/loginAjax')}",
+                type:"POST",
+                data:{
+                    user:user,
+                    pass:pass
+                },
+                success:function(res){
+                    console.log(res);
+                    if(res.status == 1)
+                    {
+                        location.href = "{:url('admin/Admin/index')}";
+                    }
+                    else
+                    {
+                        $("#adminError").css("display","block");
+                        $("#adminContent").text(res.msg);
+                    }
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>
