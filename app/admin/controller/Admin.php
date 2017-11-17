@@ -48,7 +48,6 @@ class Admin extends AdminParent
                 $this->error('保存失败');
             }
         }
-        $this->assign('info',false);
         return $this->fetch('addAdmin');
     }
     //修改管理员信息
@@ -92,8 +91,7 @@ class Admin extends AdminParent
                 $this->error('修改失败');
             }
         }
-
-        return $this->fetch('addAdmin');
+        return $this->fetch('editAdmin');
     }
     //删除管理员
     public function delAdmin()

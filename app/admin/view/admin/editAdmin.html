@@ -5,7 +5,7 @@
     <li class="active">Data</li>
 </ol>
 <h4 class="page-title b-0">
-    添加管理员
+    修改管理员信息
 </h4>
 <div class="listview list-container">
     <header class="listview-header media">
@@ -19,12 +19,21 @@
     </header>
 </div>
 <section id="login">
-    <!-- Register -->
-    <form class="box animated tile active"  action="{:url('index/admin/admin/addAdmin')}" method="POST">
+    <form class="box animated tile active form-validation-9" action="{:url('index/admin/admin/editAdmin')}" method="POST">
         <h2 class="m-t-0 m-b-15"></h2>
-        <input type="text" class="login-control m-b-10" placeholder="请输入用户名" name="user">
+        <input type="text" class="login-control m-b-10 form-control" value="{$info.user}" disabled>
+        <input type="hidden" value="{$info.id}" name="id">
         <input type="password" class="login-control m-b-10" placeholder="请输入密码" name="pass">
-        <input type="password" class="login-control m-b-20" placeholder="重复输入密码" name="re_pass">
+        <input type="password" class="login-control m-b-10" placeholder="重复输入密码" name="re_pass">
+        <input type="text" class="login-control m-b-10" placeholder="请输入邮箱" name="email" value="{$info.email}">
+        <input type="text" class="login-control m-b-10" placeholder="请输入手机号" name="mobile" value="{$info.mobile}">
+        <select name="sex" class="form-control input-sm validate[required] m-b-20" style="width: 150px;;">
+            <option value="">性别</option>
+            <option value="1">男</option>
+            <option value="2">女</option>
+            <option value="3">保密</option>
+        </select>
+        <div class="clearfix"></div>
         <button class="btn btn-sm m-r-5">Save</button>
     </form>
 </section>
