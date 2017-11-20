@@ -115,4 +115,19 @@ class Admin extends AdminParent
         $this->assign('list',$list);
         return $this->fetch('loginLog');
     }
+    //查看管理员信息
+    public function adminInfo()
+    {
+        if($this->request->method() == 'GET')
+        {
+            $id = $this->request->param()['id'];
+            $info = Db::name('admin')->where('id',$id)->find();
+            if(!empty($info['last_login_ip']))
+            {
+                $info['last_login_location'] = implode(" ", \Ip::find($info['last_login_ip']));
+            }
+            $this->assign('info',$info);
+        }
+        return $this->fetch('adminInfo');
+    }
 }

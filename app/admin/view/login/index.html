@@ -18,6 +18,8 @@
     <link href="__PUBLIC__/css/animate.css" rel="stylesheet">
     <link href="__PUBLIC__/css/generics.css" rel="stylesheet">
     <link href="__PUBLIC__/css/file-manager.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/form.css" rel="stylesheet">
+    <!--<link href="__PUBLIC__/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />-->
 </head>
 <body id="skin-blur-violate">
 <section id="login">
@@ -29,17 +31,23 @@
     <div class="clearfix"></div>
 
     <!-- Login -->
-    <form class="box tile animated active">
-        <h2 class="m-t-0 m-b-15">Login</h2>
-        <input type="text" class="login-control m-b-10" placeholder="Username or Email Address" name="username">
-        <input type="password" class="login-control" placeholder="Password" name="password">
+    <form class="box tile animated active form-validation-1" action="{:\\think\\Url::build('loginAjax')}" method="post" id="required">
+        <input type="text" class="m-b-10 input-sm validate[required] form-control" placeholder="请输入用户名" name="username" datatype="*">
+        <input type="password" class="input-sm m-b-10 validate[required] form-control" placeholder="请输入密码" name="password" datatype="*">
+        <div class="form-group-sm">
+            <label class="col-sm-5"><input datatype="*" style="height:42px;margin-left:-8px;" type="text" class="login-control" placeholder="请输入验证码" name="captcha"></label>
+            <div class="col-md-3">
+                <img id="captcha" src="{:captcha_src()}" alt="验证码" title="点击刷新验证码" style="cursor:pointer;width: 150px;height: 40px">
+            </div>
+        </div>
+
         <div class="checkbox m-b-20">
             <!--<label>
                 <input type="checkbox">
                 Remember Me
             </label>-->
         </div>
-        <a class="btn btn-sm m-r-5" id="adminLogin" >Sign In</a>
+        <input name="" type="submit" class="btn btn-sm m-r-5" value="Sign In">
     </form>
     <div id="adminError" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable bounceIn animated std42-dialog  elfinder-dialog elfinder-dialog-error elfinder-dialog-active" style="display:none;width: 320px; height: auto; top: 200px; left: 630px; z-index: 11;">
         <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
@@ -70,13 +78,46 @@
 
 <!-- All JS functions -->
 <script src="__PUBLIC__/js/functions.js"></script>
+<!-- 验证表单validfrom-->
+<!--<script type="text/javascript" src="__PUBLIC__/js/layer/2.4/layer.js"></script>
+<script src="__PUBLIC__/js/Validform/5.3.2/Validform.min.js"></script>-->
+<script src="__PUBLIC__/js/validation/validate.min.js"></script> <!-- jQuery Form Validation Library -->
+<script src="__PUBLIC__/js/validation/validationEngine.min.js"></script> <!-- jQuery Form Validation Library - requirred with above js -->
 <script>
     $(function () {
         //关闭弹窗
         $(".close_alert").on("click", function () {
             $("#adminError").css("display","none");
         })
+        $("#captcha").click(function () {
+            $(this).attr("src","{:captcha_src()}?t="+new Date().getTime());
+        });
+        /*$("#form").Validform({
+            tiptype:2,
+            ajaxPost:true,
+            showAllError:true,
+            callback:function(ret){
+                console.log(ret);
+                if (ret.code){
+                    if (ret.msg == '验证码错误!'){
+                        $("#captcha").click();
+                        $("[name='captcha']").val('');
+                        //layer.msg(ret.msg);
+                        $("#adminError").css("display","block");
+                        $("#adminContent").text(ret.msg);
+                    } else {
+                        location.href = "{:url('admin/Admin/index')}";
+                    }
+                }
+                else
+                {
+                    $("#adminError").css("display","block");
+                    $("#adminContent").text("非法操作");
+                }
+            }
+        });*/
         //登陆
+        /*
         $("#adminLogin").on("click",function(){
             var user = $("input[name='username']").val();
             var pass = $("input[name='password']").val();
@@ -101,6 +142,7 @@
                 }
             })
         })
+        */
     })
 </script>
 </body>
