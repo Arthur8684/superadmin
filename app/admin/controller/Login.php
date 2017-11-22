@@ -25,13 +25,14 @@ class Login extends Controller
         {
             $data = $this->request->post();
             $validate = Loader::validate('Login');
+            //判断验证码
             if (!$validate->scene('login')->check($data)) {
-                return ajax_return_adv_error($validate->getError());
+                return json(['status'=>-1, 'msg'=>$validate->getError()]);
             }
             $info = Db::name('admin')->where('user',$data['username'])->find();
             if(empty($info))
             {
-                return ajax_return_adv_error('帐号不存在或已禁用！');
+                return json(['msg'=>'该用户不存在或已被禁用']);
             }
             if($info['user'] == $data['username'] && $info['pass'] == substr(md5($data['password']),6,20)) {
                 //保存登录信息
@@ -58,13 +59,11 @@ class Login extends Controller
                 $log['login_time'] = time();
                 Db::name('login_log')->insert($log);
                 session('admin.id',$info['id']);
-                //return json(['status'=>1]);
-                return ajax_return_adv_error('登陆成功');
+                return json(['status'=>1]);
             }
             else
             {
-                //return json(['msg'=>'账号不存在或已禁止使用']);
-                return ajax_return_adv_error('账号密码不匹配');
+                return json(['msg'=>'账号密码不匹配']);
             }
         }
     }
