@@ -1,4 +1,11 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: rj158
+ * Date: 2017/11/23
+ * Time: 14:38
+ * 登陆，注销
+ */
 namespace app\admin\controller;
 
 use think\Controller;

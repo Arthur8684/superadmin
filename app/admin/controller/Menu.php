@@ -2,17 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: rj158
- * Date: 2017/11/16
- * Time: 14:01
- * 文件管理插件
+ * Date: 2017/11/23
+ * Time: 14:38
+ * 菜单管理
  */
 namespace app\admin\controller;
 
 use think\util\AdminParent;
 
-class FileManager extends AdminParent{
+class Menu extends AdminParent{
     public function index()
     {
+        return $this->fetch();
+    }
+    public function menuAdd(){
         return $this->fetch();
     }
 }
