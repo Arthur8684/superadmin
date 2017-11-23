@@ -26,15 +26,15 @@
         <input type="text" class="login-control m-b-10 form-control" value="性别：{$info.sex|get_sex}" disabled>
         <input type="text" class="login-control m-b-10 form-control" value="Email：{$info.email}" disabled>
         <input type="text" class="login-control m-b-10 form-control" value="联系方式：{$info.mobile}" disabled>
-        <input type="text" class="login-control m-b-10 form-control" value="管理员状态：{eq name="info['status']" value="1" }正常{else/}禁用{/eq}" disabled>
-        <input type="text" class="login-control m-b-10 form-control" value="管理员级别：{eq name="info['super']" value="1" }超级管理员{else/}普通管理员{/eq}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="管理员状态：{eq name="$info.status" value="1" }正常{else/}禁用{/eq}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="管理员级别：{eq name="$info.super" value="1" }超级管理员{else/}普通管理员{/eq}" disabled>
         {if condition="$info['login_count'] neq 0"}
         <input type="text" class="login-control m-b-10 form-control" value="登陆次数：{$info.login_count}" disabled>
         <input type="text" class="login-control m-b-10 form-control" value="上次登陆ip：{$info.last_login_ip}" disabled>
         <input type="text" class="login-control m-b-10 form-control" value="上次登陆地址：{$info.last_login_location}" disabled>
-        <input type="text" class="login-control m-b-10 form-control" value="上次登陆时间：{$info.last_login_time|date="Y-m-d H:i:s",###}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="上次登陆时间：{$info.last_login_time|date='Y-m-d H:i:s',###}" disabled>
         {/if}
-        <input type="text" class="login-control m-b-10 form-control" value="注册时间：{$info.create_time|date="Y-m-d H:i:s",###}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="注册时间：{$info.create_time|date='Y-m-d H:i:s',###}" disabled>
     </form>
 </section>
 

@@ -23,7 +23,7 @@
     <script src="__PUBLIC__/js/jquery.min.js"></script>
 </head>
 <body id="skin-blur-violate">
-
+<?php $admin_info = admin_info(); ?>
 <header id="header" class="media">
     <a href="" id="menu-toggle"></a>
     <a class="logo pull-left" href="index.html">SUPER ADMIN 1.0</a>
@@ -82,8 +82,8 @@
                     <li><a href="javascript:;">设置</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>
                     <li><a href="javascript:;" id="signOut">注销</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>
                 </ul>
-                <h4 class="m-0">Malinda Hollaway </h4>
-                @malinda-h
+                <h4 class="m-0">{:$admin_info['user']}</h4>
+                {neq name="$admin_info['email']" value=""}{:$admin_info['email']}{/neq}
             </div>
 
             <!-- Calendar -->
@@ -397,13 +397,13 @@
             </div>
         </div>
         <script>
-            $(function(){
-                $("#signOut").on("click",function(){
-                    var quitMsg = confirm("您确定要退出吗！");
-                    if(quitMsg == true)
-                    {
-                        location.href = "{:url('index/admin/Login/loginQuit')}";
-                    }
-                })
+        $(function(){
+            $("#signOut").on("click",function(){
+                var quitMsg = confirm("您确定要退出吗！");
+                if(quitMsg == true)
+                {
+                    location.href = "{:url('index/admin/Login/loginQuit')}";
+                }
             })
-        </script>
+        })
+    </script>
