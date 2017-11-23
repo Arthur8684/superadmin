@@ -18,3 +18,30 @@
         </ul>
     </header>
 </div>
+<section id="login">
+    <!-- Register -->
+    <form class="box animated tile active"  action="{:url('admin/Menu/menuAdd')}" method="POST">
+        <h2 class="m-t-0 m-b-15"></h2>
+        <h3 class="block-title">
+            内链:网站内部链接，通过模块名-控制器-操作名来组合成一个链接,如admin.php/Admin/Menu/menu_list/p/1/a/2.html或admin.php?m=Admin&c=Menu&a=menu_list&p=1&a=2,模块名称为:Admin(如果为admin可以不写留空),控制器名：Menu,操作名称：menu_list,其他参数：p=1&a=2。
+        </h3>
+        <select name="sex" class="form-control input-sm validate[required] m-b-20" style="width: 150px;;">
+            <option value="0">顶级菜单</option>
+        </select>
+        <input type="text" class="login-control m-b-10 form-control" value="" placeholder="菜单名称">
+        <input type="text" class="login-control m-b-10 form-control" value="" placeholder="模块名称">
+        <input type="text" class="login-control m-b-10 form-control" value="" placeholder="控制器名称">
+        <input type="text" class="login-control m-b-10 form-control" value="" placeholder="方法名称">
+        <button class="btn btn-sm m-r-5">Save</button>
+    </form>
+</section>
+<!-- Bootstrap -->
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+
+<!--  Form Related -->
+<script src="__PUBLIC__/js/icheck.js"></script> <!-- Custom Checkbox + Radio -->
+
+<!-- All JS functions -->
+<script src="__PUBLIC__/js/functions.js"></script>
+</body>
+</html>
