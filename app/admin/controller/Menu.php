@@ -16,6 +16,10 @@ class Menu extends AdminParent{
         return $this->fetch();
     }
     public function menuAdd(){
+        if($this->request->isPost())
+        {
+            $this->error('123');
+        }
         return $this->fetch();
     }
 }

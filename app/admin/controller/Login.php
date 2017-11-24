@@ -28,7 +28,7 @@ class Login extends Controller
     public function loginAjax()
     {
         $request = Request::instance();
-        if($request->method() == 'POST')
+        if($request->isAjax() && $request->isPost())
         {
             $data = $this->request->post();
             $validate = Loader::validate('Login');
