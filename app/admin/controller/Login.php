@@ -32,8 +32,8 @@ class Login extends Controller
         {
             $data = $this->request->post();
             $validate = Loader::validate('Login');
-            //判断验证码
-            if (!$validate->scene('login')->check($data)) {
+            //验证表单
+            if (!$validate->check($data)) {
                 return json(['status'=>-1, 'msg'=>$validate->getError()]);
             }
             $info = Db::name('admin')->where('user',$data['username'])->find();

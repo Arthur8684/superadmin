@@ -25,13 +25,17 @@
         <h3 class="block-title">
             内链:网站内部链接，通过模块名-控制器-操作名来组合成一个链接,如admin.php/Admin/Menu/menu_list/p/1/a/2.html或admin.php?m=Admin&c=Menu&a=menu_list&p=1&a=2,模块名称为:Admin(如果为admin可以不写留空),控制器名：Menu,操作名称：menu_list,其他参数：p=1&a=2。
         </h3>
-        <select name="sex" class="form-control input-sm validate[required] m-b-20" style="width: 150px;;">
+        <select name="parent_id" class="form-control input-sm m-b-20" style="width: 150px;;">
             <option value="0">顶级菜单</option>
+            {volist name="menu" id="vo"}
+            <option value="{$vo['menu_id']}">{$vo['menu_title']}</option>
+            {/volist}
         </select>
-        <input type="text" class="login-control m-b-10 form-control" value="" placeholder="菜单名称">
-        <input type="text" class="login-control m-b-10 form-control" value="" placeholder="模块名称">
-        <input type="text" class="login-control m-b-10 form-control" value="" placeholder="控制器名称">
-        <input type="text" class="login-control m-b-10 form-control" value="" placeholder="方法名称">
+        <input type="text" class="login-control m-b-10 form-control" name="sort" value="" placeholder="序号">
+        <input type="text" class="login-control m-b-10 form-control" name="menu_title" value="" placeholder="菜单名称">
+        <input type="text" class="login-control m-b-10 form-control" name="url_m" value="" placeholder="模块名称">
+        <input type="text" class="login-control m-b-10 form-control" name="url_c" value="" placeholder="控制器名称">
+        <input type="text" class="login-control m-b-10 form-control" name="url_f" value="" placeholder="方法名称">
         <button class="btn btn-sm m-r-5">Save</button>
     </form>
 </section>

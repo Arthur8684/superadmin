@@ -23,7 +23,7 @@
     <script src="__PUBLIC__/js/jquery.min.js"></script>
 </head>
 <body id="skin-blur-violate">
-<?php $admin_info = admin_info(); ?>
+<?php $admin_info = admin_info();?>
 <header id="header" class="media">
     <a href="" id="menu-toggle"></a>
     <a class="logo pull-left" href="index.html">SUPER ADMIN 1.0</a>
@@ -160,7 +160,28 @@
                     <span class="menu-item">首页</span>
                 </a>
             </li>
-            <li>
+            {volist name="$admin_info['menu']" id="vo"}
+                {if condition="($vo['parent_id'] == 0) and ($vo['sub_menu'] == [])"}
+                <li>
+                    <a class="{$vo['class']}" href="{:url($vo['url_m'].'/'.$vo['url_c'].'/'.$vo['url_f'])}">
+                        <span class="menu-item">{$vo['menu_title']}</span>
+                    </a>
+                </li>
+                {else /}
+                <li class="dropdown">
+                    <a class="{$vo['class']}">
+                        <span class="menu-item">{$vo['menu_title']}</span>
+                    </a>
+                    <ul class="list-unstyled menu-item">
+                        <li><a href="{:url($vo['url_m'].'/'.$vo['url_c'].'/'.$vo['url_f'])}">{$vo['menu_title']}</a></li>
+                        {volist name="$vo['sub_menu']" id="m"}
+                        <li><a href="{:url($m['url_m'].'/'.$m['url_c'].'/'.$m['url_f'])}">{$m['menu_title']}</a></li>
+                        {/volist}
+                    </ul>
+                </li>
+                {/if}
+            {/volist}
+            <!--<li>
                 <a class="sa-side-typography" href="typography.html">
                     <span class="menu-item">Typography</span>
                 </a>
@@ -211,7 +232,7 @@
                 </a>
             </li>
             <li>
-                <a class="sa-side-calendar" href="calendar.html">
+                <a class="sa-side-calendar" href="javascript:;">
                     <span class="menu-item">Calendar</span>
                 </a>
             </li>
@@ -224,7 +245,7 @@
                     <li><a href="{:url('index/admin/Admin/loginLog')}">登录日志</a></li>
                     <li><a href="{:url('index/admin/Admin/adminList')}">管理员列表</a></li>
                 </ul>
-            </li>
+            </li>-->
         </ul>
 
     </aside>
