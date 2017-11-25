@@ -33,12 +33,13 @@
                 </tr>
                 </thead>
                 <tbody>
+                {volist name="menu" id="vo" key="k"}
                 <tr>
-                    <td>111</td>
-                    <td>222</td>
-                    <td>1</td>
-                    <td>333</td>
-                    <td>444</td>
+                    <td>{$k}</td>
+                    <td>{$vo['menu_id']}</td>
+                    <td>{$vo['sort']}</td>
+                    <td>{$vo['menu_title']}</td>
+                    <td>{eq name="$vo['parent_id']" value="0"}顶级菜单{/eq}</td>
                     <td>555</td>
                     <td>
                         <a class="icon" href="javascript:;" title="编辑" style="font-size: 16px;">&#61952;</a>&nbsp;&nbsp;
@@ -47,6 +48,7 @@
                         <a class="icon" href="javascript:;" title="添加子菜单" style="font-size: 16px;">&#61943;</a>&nbsp;&nbsp;
                     </td>
                 </tr>
+                {/volist}
                 </tbody>
             </table>
         </div>

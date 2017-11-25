@@ -15,9 +15,12 @@ use think\Db;
 class Menu extends AdminParent{
     public function index()
     {
+        $menu = Db::name('menu')->where('parent_id',0)->select();
+        $this->assign('menu',$menu);
         return $this->fetch();
     }
     public function menuAdd(){
+        //添加菜单
         if($this->request->isPost())
         {
             $data = $this->request->post();
@@ -40,6 +43,7 @@ class Menu extends AdminParent{
                 }
             }
         }
+        //菜单列表
         $menu = Db::name('menu')->where('status',1)->where('parent_id',0)->select();
         $this->assign('menu',$menu);
         return $this->fetch();

@@ -29,7 +29,7 @@ function admin_info()
     {
         $where = '1=1';
     }
-    $info['menu'] = Db::name('menu')->where($where)->where('parent_id',0)->where('status',1)->select();
+    $info['menu'] = Db::name('menu')->where($where)->where('parent_id',0)->where('status',1)->order('sort')->select();
     $class = ['sa-side-typography','sa-side-widget','sa-side-table','sa-side-form','sa-side-ui','sa-side-chart','sa-side-folder','sa-side-calendar','sa-side-page'];
     if(!empty($info['menu']))
     {
