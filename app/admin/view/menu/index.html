@@ -12,6 +12,11 @@
     <header class="listview-header media">
         <ul class="list-inline list-mass-actions pull-left">
             <li>
+                <a data-toggle="modal" href="javascript:;" onclick="window.history.back();" title="返回" class="tooltips">
+                    <i class="sa-list-back"></i>
+                </a>
+            </li>
+            <li>
                 <a data-toggle="modal" href="{:url('admin/Menu/menuAdd')}" title="添加菜单" class="tooltips">
                     <i class="sa-list-add"></i>
                 </a>
@@ -29,6 +34,7 @@
                     <th>菜单名称</th>
                     <th>上级菜单</th>
                     <th>子菜单数</th>
+                    <th>创建时间</th>
                     <th>菜单操作</th>
                 </tr>
                 </thead>
@@ -39,12 +45,17 @@
                     <td>{$vo['menu_id']}</td>
                     <td>{$vo['sort']}</td>
                     <td>{$vo['menu_title']}</td>
-                    <td>{eq name="$vo['parent_id']" value="0"}顶级菜单{/eq}</td>
-                    <td>555</td>
+                    <td>{$vo['parent_menu']}</td>
+                    <td>{$vo['child_len']}</td>
+                    <td>{$vo['create_time']|date="Y-m-d H:i:s",###}</td>
                     <td>
                         <a class="icon" href="javascript:;" title="编辑" style="font-size: 16px;">&#61952;</a>&nbsp;&nbsp;
-                        <a class="icon" href="javascript:;" title="删除" style="font-size: 16px;">&#61918;</a>&nbsp;&nbsp;
-                        <a class="icon" href="javascript:;" title="查看子菜单" style="font-size: 16px;">&#61788;</a>&nbsp;&nbsp;
+                        <a class="icon" href="{:url('admin/Menu/delMenu','menu_id='.$vo['menu_id'])}" title="删除"
+                           style="font-size: 16px;">&#61918;</a>&nbsp;&nbsp;
+                        {if condition="$vo['child_len'] != 0"}
+                            <a class="icon" href="{:url('admin/Menu/index','menu_id='.$vo['menu_id'])}" title="查看子菜单"
+                               style="font-size: 16px;">&#61788;</a>&nbsp;&nbsp;
+                        {/if}
                         <a class="icon" href="javascript:;" title="添加子菜单" style="font-size: 16px;">&#61943;</a>&nbsp;&nbsp;
                     </td>
                 </tr>
@@ -83,6 +94,17 @@
 
 <!-- All JS functions -->
 <script src="__PUBLIC__/js/functions.js"></script>
+<script>
+    $(function(){
+        $("#delMenu").on("click",function(){
+            var quitMsg = confirm("您确定要退出吗！");
+            if(quitMsg == true)
+            {
+                location.href = "{:url('index/admin/Login/loginQuit')}";
+            }
+        })
+    })
+</script>
 </body>
 </html>
 

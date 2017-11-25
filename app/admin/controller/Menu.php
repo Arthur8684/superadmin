@@ -13,14 +13,37 @@ use think\Loader;
 use think\Db;
 
 class Menu extends AdminParent{
+    //菜单列表
     public function index()
     {
-        $menu = Db::name('menu')->where('parent_id',0)->select();
+        $menu_id = $this->request->param() ? $this->request->param()['menu_id'] : null;
+        if(empty($menu_id))
+        {
+            $where = ['parent_id'=>0];
+        }
+        else
+        {
+            $where = ['parent_id'=>$menu_id];
+        }
+        $menu = Db::name('menu')->where($where)->select();
+        foreach($menu as &$v)
+        {
+            if($v['parent_id'] == 0)
+            {
+                $v['parent_menu'] = '顶级菜单';
+            }
+            else
+            {
+                $v['parent_menu'] = Db::name('menu')->field('menu_title')->where('menu_id',$v['parent_id'])->find()['menu_title'];
+            }
+            $v['child_len'] = Db::name('menu')->where('parent_id',$v['menu_id'])->count();
+        }
+        unset($v);
         $this->assign('menu',$menu);
         return $this->fetch();
     }
+    //添加菜单
     public function menuAdd(){
-        //添加菜单
         if($this->request->isPost())
         {
             $data = $this->request->post();
@@ -47,5 +70,21 @@ class Menu extends AdminParent{
         $menu = Db::name('menu')->where('status',1)->where('parent_id',0)->select();
         $this->assign('menu',$menu);
         return $this->fetch();
+    }
+    public function delMenu(){
+        $menu_id = $this->request->param() ? $this->request->param()['menu_id'] : null;
+        if(empty($menu_id))
+        {
+           $this->error('非法操作');
+        }
+        $del = Db::name('menu')->where('menu_id',$menu_id)->delete();
+        if(!empty($del))
+        {
+            $this->success('删除成功');
+        }
+        else
+        {
+            $this->error('删除失败');
+        }
     }
 }
