@@ -24,6 +24,7 @@ class Menu extends AdminParent{
         else
         {
             $where = ['parent_id'=>$menu_id];
+            $this->assign('menu_id',$menu_id);
         }
         $menu = Db::name('menu')->where($where)->select();
         foreach($menu as &$v)
@@ -44,6 +45,11 @@ class Menu extends AdminParent{
     }
     //添加菜单
     public function menuAdd(){
+        $menu_id = null;
+        if($this->request->isGet())
+        {
+            $menu_id = $this->request->param() ? $this->request->param()['menu_id'] : null;
+        }
         if($this->request->isPost())
         {
             $data = $this->request->post();
@@ -58,7 +64,7 @@ class Menu extends AdminParent{
                 $add = Db::name('menu')->insert($data);
                 if(!empty($add))
                 {
-                    $this->error('菜单添加成功');
+                    $this->success('菜单添加成功');
                 }
                 else
                 {
@@ -68,6 +74,7 @@ class Menu extends AdminParent{
         }
         //菜单列表
         $menu = Db::name('menu')->where('status',1)->where('parent_id',0)->select();
+        $this->assign('menu_id',$menu_id);
         $this->assign('menu',$menu);
         return $this->fetch();
     }
@@ -80,7 +87,7 @@ class Menu extends AdminParent{
         $del = Db::name('menu')->where('menu_id',$menu_id)->delete();
         if(!empty($del))
         {
-            $this->success('删除成功');
+            $this->success('删除成功',url('admin/Menu/index'));
         }
         else
         {

@@ -11,7 +11,7 @@
     <header class="listview-header media">
         <ul class="list-inline list-mass-actions pull-left">
             <li>
-                <a data-toggle="modal" href="javascript:;" onclick="window.history.back();" title="返回" class="tooltips">
+                <a data-toggle="modal" href="{:url('admin/menu/index')}" title="返回" class="tooltips">
                     <i class="sa-list-back"></i>
                 </a>
             </li>
@@ -28,7 +28,7 @@
         <select name="parent_id" class="form-control input-sm m-b-20" style="width: 150px;;">
             <option value="0">顶级菜单</option>
             {volist name="menu" id="vo"}
-            <option value="{$vo['menu_id']}">{$vo['menu_title']}</option>
+                <option value="{$vo['menu_id']}" {eq name="$menu_id" value="$vo['menu_id']"}selected{/eq}>{$vo['menu_title']}</option>
             {/volist}
         </select>
         <input type="text" class="login-control m-b-10 form-control" name="sort" value="" placeholder="序号">

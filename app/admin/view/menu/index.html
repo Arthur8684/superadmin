@@ -7,20 +7,27 @@
         <li><a href="javascript:;">Library</a></li>
         <li class="active">Data</li>
     </ol>
+    {if condition="empty($menu_id)"}
     <h4 class="page-title">菜单管理</h4>
+    {else /}
+    <h4 class="page-title">二级菜单</h4>
+    {/if}
     <!-- Table Hover -->
     <header class="listview-header media">
         <ul class="list-inline list-mass-actions pull-left">
-            <li>
-                <a data-toggle="modal" href="javascript:;" onclick="window.history.back();" title="返回" class="tooltips">
-                    <i class="sa-list-back"></i>
-                </a>
-            </li>
+            {if condition="empty($menu_id)"}
             <li>
                 <a data-toggle="modal" href="{:url('admin/Menu/menuAdd')}" title="添加菜单" class="tooltips">
                     <i class="sa-list-add"></i>
                 </a>
             </li>
+            {else /}
+            <li>
+                <a data-toggle="modal" href="{:url('admin/Menu/index')}" onclick="window.history.back();" title="返回" class="tooltips">
+                    <i class="sa-list-back"></i>
+                </a>
+            </li>
+            {/if}
         </ul>
     </header>
     <div class="block-area" id="tableHover">
@@ -56,7 +63,9 @@
                             <a class="icon" href="{:url('admin/Menu/index','menu_id='.$vo['menu_id'])}" title="查看子菜单"
                                style="font-size: 16px;">&#61788;</a>&nbsp;&nbsp;
                         {/if}
-                        <a class="icon" href="javascript:;" title="添加子菜单" style="font-size: 16px;">&#61943;</a>&nbsp;&nbsp;
+                        {if condition="$vo['parent_id'] == 0"}
+                        <a class="icon" href="{:url('admin/Menu/menuAdd','menu_id='.$vo['menu_id'])}" title="添加子菜单" style="font-size: 16px;">&#61943;</a>&nbsp;&nbsp;
+                        {/if}
                     </td>
                 </tr>
                 {/volist}
