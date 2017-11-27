@@ -51,12 +51,12 @@
                     <td>{$k}</td>
                     <td>{$vo['menu_id']}</td>
                     <td>{$vo['sort']}</td>
-                    <td>{$vo['menu_title']}</td>
+                    <td><a href="{:url($vo['url_m'].'/'.$vo['url_c'].'/'.$vo['url_f'])}">{$vo['menu_title']}</a></td>
                     <td>{$vo['parent_menu']}</td>
                     <td>{$vo['child_len']}</td>
                     <td>{$vo['create_time']|date="Y-m-d H:i:s",###}</td>
                     <td>
-                        <a class="icon" href="javascript:;" title="编辑" style="font-size: 16px;">&#61952;</a>&nbsp;&nbsp;
+                        <a class="icon" href="{:url('admin/Menu/menuEdit','menu_id='.$vo['menu_id'])}" title="编辑" style="font-size: 16px;">&#61952;</a>&nbsp;&nbsp;
                         <a class="icon" href="{:url('admin/Menu/delMenu','menu_id='.$vo['menu_id'])}" title="删除"
                            style="font-size: 16px;">&#61918;</a>&nbsp;&nbsp;
                         {if condition="$vo['child_len'] != 0"}

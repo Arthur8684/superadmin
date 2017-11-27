@@ -13,6 +13,15 @@ use think\Loader;
 use think\Db;
 
 class Menu extends AdminParent{
+    private $menu = null;
+
+    /**
+     * @return false|mixed|\PDOStatement|string|\think\Collection
+     */
+    private function getMenu()
+    {
+        return $this->menu = Db::name('menu')->where('status',1)->where('parent_id',0)->select();
+    }
     //菜单列表
     public function index()
     {
@@ -26,7 +35,7 @@ class Menu extends AdminParent{
             $where = ['parent_id'=>$menu_id];
             $this->assign('menu_id',$menu_id);
         }
-        $menu = Db::name('menu')->where($where)->select();
+        $menu = Db::name('menu')->where($where)->order('sort')->select();
         foreach($menu as &$v)
         {
             if($v['parent_id'] == 0)
@@ -58,24 +67,20 @@ class Menu extends AdminParent{
             {
                 $this->error($validate->getError());
             }
+            $data['create_time'] = time();
+            $add = Db::name('menu')->insert($data);
+            if(!empty($add))
+            {
+                $this->success('菜单添加成功','Menu/index');
+            }
             else
             {
-                $data['create_time'] = time();
-                $add = Db::name('menu')->insert($data);
-                if(!empty($add))
-                {
-                    $this->success('菜单添加成功');
-                }
-                else
-                {
-                    $this->error('菜单添加失败');
-                }
+                $this->error('菜单添加失败');
             }
         }
-        //菜单列表
-        $menu = Db::name('menu')->where('status',1)->where('parent_id',0)->select();
+
         $this->assign('menu_id',$menu_id);
-        $this->assign('menu',$menu);
+        $this->assign('menu',$this->getMenu());
         return $this->fetch();
     }
     public function delMenu(){
@@ -93,5 +98,42 @@ class Menu extends AdminParent{
         {
             $this->error('删除失败');
         }
+    }
+    public function menuEdit(){
+        $menu_id = null;
+
+        if($this->request->isGet())
+        {
+            $id = $this->request->param() ? $this->request->param()['menu_id'] : null;
+            if(empty($id))
+            {
+                $this->error('非法操作');
+            }
+            $info = Db::name('menu')->where('menu_id',$id)->find();       //菜单信息
+            $menu_id = Db::name('menu')->where('menu_id',$info['parent_id'])->field('menu_id')->find()['menu_id'];      //上级菜单id
+            $this->assign('info',$info);
+        }
+        if($this->request->isPost())
+        {
+            $data = $this->request->param();
+            $validate = Loader::validate('Menu');
+            if(!$validate->check($data))
+            {
+                $this->error($validate->getError());
+            }
+            $edit = Db::name('menu')->where('menu_id',$data['menu_id'])->update($data);
+            if(!empty($edit))
+            {
+                $this->success('修改成功','admin/Menu/index');
+            }
+            else
+            {
+                $this->error('修改失败');
+            }
+
+        }
+        $this->assign('menu_id',$menu_id);
+        $this->assign('menu',$this->getMenu());
+        return $this->fetch('menuEdit');
     }
 }
