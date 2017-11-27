@@ -58,7 +58,7 @@
                     <td>
                         <a class="icon" href="{:url('admin/Menu/menuEdit','menu_id='.$vo['menu_id'])}" title="编辑" style="font-size: 16px;">&#61952;</a>&nbsp;&nbsp;
                         <a class="icon" href="{:url('admin/Menu/delMenu','menu_id='.$vo['menu_id'])}" title="删除"
-                           style="font-size: 16px;">&#61918;</a>&nbsp;&nbsp;
+                           style="font-size: 16px;" id="delMenu">&#61918;</a>&nbsp;&nbsp;
                         {if condition="$vo['child_len'] != 0"}
                             <a class="icon" href="{:url('admin/Menu/index','menu_id='.$vo['menu_id'])}" title="查看子菜单"
                                style="font-size: 16px;">&#61788;</a>&nbsp;&nbsp;
@@ -103,17 +103,6 @@
 
 <!-- All JS functions -->
 <script src="__PUBLIC__/js/functions.js"></script>
-<script>
-    $(function(){
-        $("#delMenu").on("click",function(){
-            var quitMsg = confirm("您确定要退出吗！");
-            if(quitMsg == true)
-            {
-                location.href = "{:url('index/admin/Login/loginQuit')}";
-            }
-        })
-    })
-</script>
 </body>
 </html>
 

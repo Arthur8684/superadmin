@@ -155,11 +155,11 @@
 
         <!-- Side Menu -->
         <ul class="list-unstyled side-menu">
-            <li class="active">
+            <!--<li class="active">
                 <a class="sa-side-home" href="index.html">
                     <span class="menu-item">首页</span>
                 </a>
-            </li>
+            </li>-->
             {volist name="$admin_info['menu']" id="vo"}
                 {if condition="($vo['parent_id'] == 0) and ($vo['sub_menu'] == [])"}
                 <li>
@@ -181,71 +181,6 @@
                 </li>
                 {/if}
             {/volist}
-            <!--<li>
-                <a class="sa-side-typography" href="typography.html">
-                    <span class="menu-item">Typography</span>
-                </a>
-            </li>
-            <li>
-                <a class="sa-side-widget" href="content-widgets.html">
-                    <span class="menu-item">Widgets</span>
-                </a>
-            </li>
-            <li>
-                <a class="sa-side-table" href="tables.html">
-                    <span class="menu-item">Tables</span>
-                </a>
-            </li>
-            <li class="dropdown">
-                <a class="sa-side-form" href="">
-                    <span class="menu-item">Form</span>
-                </a>
-                <ul class="list-unstyled menu-item">
-                    <li><a href="form-elements.html">Basic Form Elements</a></li>
-                    <li><a href="form-components.html">Form Components</a></li>
-                    <li><a href="form-examples.html">Form Examples</a></li>
-                    <li><a href="form-validation.html">Form Validation</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="sa-side-ui" href="">
-                    <span class="menu-item">User Interface</span>
-                </a>
-                <ul class="list-unstyled menu-item">
-                    <li><a href="buttons.html">Buttons</a></li>
-                    <li><a href="labels.html">Labels</a></li>
-                    <li><a href="images-icons.html">Images &amp; Icons</a></li>
-                    <li><a href="alerts.html">Alerts</a></li>
-                    <li><a href="media.html">Media</a></li>
-                    <li><a href="components.html">Components</a></li>
-                    <li><a href="other-components.html">Others</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="sa-side-chart" href="charts.html">
-                    <span class="menu-item">Charts</span>
-                </a>
-            </li>
-            <li>
-                <a class="sa-side-folder" href="{:url('admin/FileManager/index')}">
-                    <span class="menu-item">文件管理</span>
-                </a>
-            </li>
-            <li>
-                <a class="sa-side-calendar" href="javascript:;">
-                    <span class="menu-item">Calendar</span>
-                </a>
-            </li>
-            <li class="dropdown">
-                <a class="sa-side-page" href="">
-                    <span class="menu-item">设置</span>
-                </a>
-                <ul class="list-unstyled menu-item">
-                    <li><a href="{:url('index/admin/Menu/index')}">菜单管理</a></li>
-                    <li><a href="{:url('index/admin/Admin/loginLog')}">登录日志</a></li>
-                    <li><a href="{:url('index/admin/Admin/adminList')}">管理员列表</a></li>
-                </ul>
-            </li>-->
         </ul>
 
     </aside>

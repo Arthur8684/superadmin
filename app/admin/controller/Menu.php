@@ -13,14 +13,13 @@ use think\Loader;
 use think\Db;
 
 class Menu extends AdminParent{
-    private $menu = null;
-
     /**
      * @return false|mixed|\PDOStatement|string|\think\Collection
+     * 获取菜单
      */
     private function getMenu()
     {
-        return $this->menu = Db::name('menu')->where('status',1)->where('parent_id',0)->select();
+        return Db::name('menu')->where('status',1)->where('parent_id',0)->select();
     }
     //菜单列表
     public function index()
@@ -83,6 +82,7 @@ class Menu extends AdminParent{
         $this->assign('menu',$this->getMenu());
         return $this->fetch();
     }
+    //删除菜单
     public function delMenu(){
         $menu_id = $this->request->param() ? $this->request->param()['menu_id'] : null;
         if(empty($menu_id))
@@ -99,6 +99,7 @@ class Menu extends AdminParent{
             $this->error('删除失败');
         }
     }
+    //修改菜单
     public function menuEdit(){
         $menu_id = null;
 
