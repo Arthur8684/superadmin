@@ -43,7 +43,7 @@ class Auth extends AdminParent{
             $add = Db::name('auth')->insert($add_data);
             if(!empty($add))
             {
-                $this->success('权限组添加成功');
+                $this->success('权限组添加成功',url('admin/Auth/index'));
             }
             else
             {
@@ -58,5 +58,22 @@ class Auth extends AdminParent{
         unset($v);
         $this->assign('menu',$menu);
         return $this->fetch();
+    }
+    //删除权限组
+    public function delAuthGroup(){
+        $auth_id = $this->request->param() ? $this->request->param()['auth_id'] : null;
+        if(empty($auth_id))
+        {
+            $this->error('非法操作');
+        }
+        $del = Db::name('auth')->where('auth_id',$auth_id)->delete();
+        if(!empty($del))
+        {
+            $this->success('删除成功');
+        }
+        else
+        {
+            $this->error('删除失败');
+        }
     }
 }
