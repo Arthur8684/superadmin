@@ -24,30 +24,29 @@
         <form role="form" class="form-validation-9" action="{:url('admin/Auth/addAuthGroup')}" method="POST">
             <div class="row">
                 <div class="col-lg-2">
-                    <input type="text" name="auth_title" class="form-control m-b-10" placeholder="权限名称">
+                    <input type="text" name="auth_title" class="form-control m-b-10" placeholder="权限组名称">
                 </div>
             </div>
+            {volist name="menu" id="vo" key="key"}
             <div class="form-group m-b-15">
                 <label class="checkbox-inline">
                                 <span class="checkableBox">
-                                    <input type="checkbox" class="" name="id" value="菜单">
+                                    <input type="checkbox" class="list-parent-check" name="menu_id_{:$vo['menu_id']}" value="{:$vo['menu_id']}">
                                 </span>
-                    菜单
+                    {:$vo['menu_title']}
                 </label>
-
-            </div>
-            <div class="form-group m-b-15">
+                {volist name="$vo['child_menu']" id="v"}
                 <label class="checkbox-inline">
                                 <span class="checkableBox">
-                                    <input type="checkbox" class="" name="id" value="菜单">
+                                    <input type="checkbox" class="list-check" name="menu_id_{:$v['menu_id']}" value="{:$v['menu_id']}">
                                 </span>
-                    菜单
+                    {:$v['menu_title']}
                 </label>
-
+                {/volist}
             </div>
+            {/volist}
             <input class="submit btn btn-sm" type="submit" value="save">
         </form>
-
         <br/><br/><br/>
     </div>
 </section>

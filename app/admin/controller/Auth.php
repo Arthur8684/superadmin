@@ -8,20 +8,54 @@
  */
 namespace app\admin\controller;
 
-use think\util\AdminParent;
 use think\Db;
+use think\Loader;
+use think\util\AdminParent;
 
 class Auth extends AdminParent{
     public function index(){
+        $auth_list = Db::name('auth')->where('status',1)->select();
+        $this->assign('auth_list',$auth_list);
         return $this->fetch();
     }
+    //添加权限组
     public function addAuthGroup(){
         if($this->request->isPost())
         {
-            dump($this->request->param());
-            exit;
+            $data = $this->request->param();
+            $validate = Loader::validate('Auth');
+            if(!$validate->check($data))
+            {
+                $this->error($validate->getError());
+            }
+            $add_data['auth_title'] = $data['auth_title'];
+            unset($data['auth_title']);
+            $menu_auth_id = implode(',',$data);
+            if(!empty($menu_auth_id))
+            {
+                $add_data['menu_auth_id'] = $menu_auth_id;
+            }
+            else
+            {
+                $this->error('请选择该权限组菜单');
+            }
+            $add_data['create_time'] = time();
+            $add = Db::name('auth')->insert($add_data);
+            if(!empty($add))
+            {
+                $this->success('权限组添加成功');
+            }
+            else
+            {
+                $this->error('权限组添加失败');
+            }
         }
-        $menu = Db::name('menu')->where('status',1)->select();
+        $menu = Db::name('menu')->where('status',1)->where('parent_id',0)->select();
+        foreach($menu as &$v)
+        {
+            $v['child_menu'] = Db::name('menu')->where('status',1)->where('parent_id',$v['menu_id'])->select();
+        }
+        unset($v);
         $this->assign('menu',$menu);
         return $this->fetch();
     }

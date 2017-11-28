@@ -32,11 +32,12 @@
                 </tr>
                 </thead>
                 <tbody>
+                {volist name="auth_list" id="vo" key="k"}
                 <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>权限测试</td>
-                    <td>2017-11-27 12:14:11</a></td>
+                    <td>{$k}</td>
+                    <td>{$vo['auth_id']}</td>
+                    <td>{$vo['auth_title']}</td>
+                    <td>{$vo['create_time']|date="Y-m-d H:i:s",###}</td>
                     <td>
                         <a class="icon" href="javascript:;" title="编辑" style="font-size: 16px;">&#61952;</a>&nbsp;&nbsp;
                         <a class="icon" href="javascript:;" title="删除"
@@ -45,6 +46,7 @@
                                style="font-size: 16px;">&#61788;</a>&nbsp;&nbsp;
                     </td>
                 </tr>
+                {/volist}
                 </tbody>
             </table>
         </div>
