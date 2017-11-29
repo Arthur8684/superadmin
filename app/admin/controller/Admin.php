@@ -4,6 +4,7 @@ namespace app\admin\controller;
 use think\util\AdminParent;
 use think\Db;
 
+
 class Admin extends AdminParent
 {
     //后台首页
@@ -107,14 +108,6 @@ class Admin extends AdminParent
             $this->error('删除失败');
         }
     }
-    //登录日志
-    public function loginLog()
-    {
-        $join = [['zx_admin zx2','zx1.uid=zx2.id']];
-        $list = Db::name('login_log')->alias('zx1')->join($join)->field('zx1.*,zx2.user')->order('log_id desc')->paginate(50);
-        $this->assign('list',$list);
-        return $this->fetch('login_log');
-    }
     //查看管理员信息
     public function adminInfo()
     {
@@ -129,5 +122,33 @@ class Admin extends AdminParent
             $this->assign('info',$info);
         }
         return $this->fetch('admin_info');
+    }
+    private function getLogData()
+    {
+        $join = [['zx_admin zx2','zx1.uid=zx2.id']];
+        $logData = Db::name('login_log')->alias('zx1')->join($join)->field('zx1.*,zx2.user')->order('log_id desc')->paginate(50);
+        return $logData;
+    }
+    //登录日志
+    public function loginLog()
+    {
+        $this->assign('list',$this->getLogData());
+        return $this->fetch('login_log');
+    }
+    //导出日志到excel表
+    public function dumpExcel()
+    {
+        $header = ['用户ID', '登录IP', '登录地点', '登录浏览器', '登录操作系统', '登录时间','用户名'];
+        $arr = $this->getLogData();
+        $data = [];
+        foreach($arr as $v)
+        {
+            unset($v['uid']);
+            $data[] = $v;
+        }
+        if ($error = \Excel::export($header, $data, "登陆日志Excel文件", '2007')) {
+            throw new Exception($error);
+        }
+        $this->success('执行完毕','admin/Admin/loginLog');
     }
 }

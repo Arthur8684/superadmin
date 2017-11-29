@@ -9,8 +9,16 @@
         </ol>
 
         <h4 class="page-title">管理员登陆日志</h4>
-
         <!-- Table Hover -->
+        <header class="listview-header media">
+            <ul class="list-inline list-mass-actions pull-left">
+                <li>
+                    <a data-toggle="modal" href="{:url('admin/Admin/dumpExcel')}" title="导出到Excel表" class="tooltips">
+                        <i class="sa-list-refresh"></i>
+                    </a>
+                </li>
+            </ul>
+        </header>
         <div class="block-area" id="tableHover">
             <br/>
             <div class="table-responsive overflow">
