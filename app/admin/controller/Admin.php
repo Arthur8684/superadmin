@@ -9,14 +9,14 @@ class Admin extends AdminParent
     //后台首页
     public function index()
     {
-        return $this->fetch('index');
+        return $this->fetch();
     }
     //管理员列表
     public function adminList()
     {
         $list = Db::name('admin')->where('super','NEQ',1)->order('id desc')->paginate(20);
         $this->assign('list',$list);
-        return $this->fetch('adminList');
+        return $this->fetch('admin_list');
     }
     //添加管理员
     public function addAdmin()
@@ -48,7 +48,7 @@ class Admin extends AdminParent
                 $this->error('保存失败');
             }
         }
-        return $this->fetch('addAdmin');
+        return $this->fetch('add_admin');
     }
     //修改管理员信息
     public function editAdmin()
@@ -91,7 +91,7 @@ class Admin extends AdminParent
                 $this->error('修改失败');
             }
         }
-        return $this->fetch('editAdmin');
+        return $this->fetch('edit_admin');
     }
     //删除管理员
     public function delAdmin()
@@ -113,7 +113,7 @@ class Admin extends AdminParent
         $join = [['zx_admin zx2','zx1.uid=zx2.id']];
         $list = Db::name('login_log')->alias('zx1')->join($join)->field('zx1.*,zx2.user')->order('log_id desc')->paginate(50);
         $this->assign('list',$list);
-        return $this->fetch('loginLog');
+        return $this->fetch('login_log');
     }
     //查看管理员信息
     public function adminInfo()
@@ -128,6 +128,6 @@ class Admin extends AdminParent
             }
             $this->assign('info',$info);
         }
-        return $this->fetch('adminInfo');
+        return $this->fetch('admin_info');
     }
 }

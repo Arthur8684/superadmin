@@ -57,7 +57,7 @@ class Auth extends AdminParent{
         }
         unset($v);
         $this->assign('menu',$menu);
-        return $this->fetch();
+        return $this->fetch('add_auth_group');
     }
     //删除权限组
     public function delAuthGroup(){
@@ -75,5 +75,27 @@ class Auth extends AdminParent{
         {
             $this->error('删除失败');
         }
+    }
+    //修改权限组
+    public function editAuthGroup()
+    {
+        if($this->request->isGet())
+        {
+            $auth_id = $this->request->param() ? $this->request->param()['auth_id'] : null;
+            if(empty($auth_id))
+            {
+                $this->error('非法操作');
+            }
+            $auth_info = Db::name('auth')->where('status',1)->where('auth_id',$auth_id)->find();
+            $this->assign('auth_info',$auth_info);
+        }
+        $menu = Db::name('menu')->where('status',1)->where('parent_id',0)->select();
+        foreach($menu as &$v)
+        {
+            $v['child_menu'] = Db::name('menu')->where('status',1)->where('parent_id',$v['menu_id'])->select();
+        }
+        unset($v);
+        $this->assign('menu',$menu);
+        return $this->fetch('edit_auth_group');
     }
 }

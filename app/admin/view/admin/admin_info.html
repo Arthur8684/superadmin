@@ -1,0 +1,54 @@
+<!-- Breadcrumb -->
+<ol class="breadcrumb hidden-xs">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+</ol>
+<h4 class="page-title b-0">
+    管理员信息
+</h4>
+<div class="listview list-container">
+    <header class="listview-header media">
+        <ul class="list-inline list-mass-actions pull-left">
+            <li>
+                <a data-toggle="modal" href="javascript:;" onclick="window.history.back();" title="返回" class="tooltips">
+                    <i class="sa-list-back"></i>
+                </a>
+            </li>
+        </ul>
+    </header>
+</div>
+<section id="login">
+    <!-- Register -->
+    <form class="box animated tile active"  action="{:url('index/admin/admin/addAdmin')}" method="POST">
+        <h2 class="m-t-0 m-b-15"></h2>
+        <input type="text" class="login-control m-b-10 form-control" value="用户名：{$info.user}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="性别：{$info.sex|get_sex}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="Email：{$info.email}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="联系方式：{$info.mobile}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="管理员状态：{eq name="$info.status" value="1" }正常{else/}禁用{/eq}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="管理员级别：{eq name="$info.super" value="1" }超级管理员{else/}普通管理员{/eq}" disabled>
+        {if condition="$info['login_count'] neq 0"}
+        <input type="text" class="login-control m-b-10 form-control" value="登陆次数：{$info.login_count}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="上次登陆ip：{$info.last_login_ip}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="上次登陆地址：{$info.last_login_location}" disabled>
+        <input type="text" class="login-control m-b-10 form-control" value="上次登陆时间：{$info.last_login_time|date='Y-m-d H:i:s',###}" disabled>
+        {/if}
+        <input type="text" class="login-control m-b-10 form-control" value="注册时间：{$info.create_time|date='Y-m-d H:i:s',###}" disabled>
+    </form>
+</section>
+
+<!-- Javascript Libraries -->
+<!-- jQuery -->
+
+
+<!-- Bootstrap -->
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+
+<!--  Form Related -->
+<script src="__PUBLIC__/js/icheck.js"></script> <!-- Custom Checkbox + Radio -->
+
+<!-- All JS functions -->
+<script src="__PUBLIC__/js/functions.js"></script>
+</body>
+</html>

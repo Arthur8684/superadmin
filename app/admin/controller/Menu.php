@@ -80,7 +80,7 @@ class Menu extends AdminParent{
 
         $this->assign('menu_id',$menu_id);
         $this->assign('menu',$this->getMenu());
-        return $this->fetch();
+        return $this->fetch('menu_add');
     }
     //删除菜单
     public function delMenu(){
@@ -135,6 +135,6 @@ class Menu extends AdminParent{
         }
         $this->assign('menu_id',$menu_id);
         $this->assign('menu',$this->getMenu());
-        return $this->fetch('menuEdit');
+        return $this->fetch('menu_edit');
     }
 }
