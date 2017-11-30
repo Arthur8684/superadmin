@@ -144,6 +144,7 @@ class Admin extends AdminParent
         foreach($arr as $v)
         {
             unset($v['uid']);
+            $v['login_time'] = date('Y-m-d H:i:s',$v['login_time']);
             $data[] = $v;
         }
         if ($error = \Excel::export($header, $data, "登陆日志Excel文件", '2007')) {
