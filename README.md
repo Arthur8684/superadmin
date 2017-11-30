@@ -1,6 +1,5 @@
 是不是应该删了，放superAdmin的简介
 ThinkPHP 5.0
-hello linux centos
 ===============
 
 [![Total Downloads](https://poser.pugx.org/topthink/think/downloads)](https://packagist.org/packages/topthink/think)
