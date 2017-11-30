@@ -1,9 +1,9 @@
 <?php
 namespace app\admin\controller;
 
-use think\util\AdminParent;
 use think\Db;
-
+use think\Exception;
+use think\util\AdminParent;
 
 class Admin extends AdminParent
 {
@@ -56,13 +56,19 @@ class Admin extends AdminParent
     {
         if($this->request->method() == 'GET')
         {
-            $id = $this->request->param()['id'];
+            $id = $this->request->param() ? $this->request->param()['id'] : null;
+            if(empty($id))
+            {
+                $this->error('非法操作','admin/Admin/adminList');
+            }
             $info = Db::name('admin')->where('id',$id)->find();
+            $auth = Db::name('auth')->where('status',1)->select();
             $this->assign('info',$info);
+            $this->assign('auth',$auth);
         }
         if($this->request->method() == 'POST')
         {
-            /*随意修改某一个字段*/
+            /*任意修改某一个字段*/
             $post = $this->request->param();
             if(!empty($post['pass']) || !empty($post['re_pass']))
             {
@@ -85,7 +91,7 @@ class Admin extends AdminParent
             $edit = Db::name('admin')->where('id',$post['id'])->update($post);
             if(!empty($edit))
             {
-                $this->success('修改成功','admin/Admin/adminList');
+                $this->success('修改成功');
             }
             else
             {
